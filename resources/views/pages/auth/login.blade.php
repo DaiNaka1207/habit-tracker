@@ -49,6 +49,17 @@
             </div>
         </form>
 
+        <div class="relative">
+            <flux:separator text="{{ __('or') }}" />
+        </div>
+
+        <form method="POST" action="{{ route('guest.login') }}">
+            @csrf
+            <flux:button type="submit" class="w-full" variant="ghost">
+                {{ __('ゲストとしてログイン') }}
+            </flux:button>
+        </form>
+
         @if (Route::has('register'))
             <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
                 <span>{{ __('Don\'t have an account?') }}</span>

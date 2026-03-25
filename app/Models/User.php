@@ -20,6 +20,11 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
+    public function isGuest(): bool
+    {
+        return $this->email === 'guest@example.com';
+    }
+
     public function habits(): HasMany
     {
         return $this->hasMany(Habit::class);

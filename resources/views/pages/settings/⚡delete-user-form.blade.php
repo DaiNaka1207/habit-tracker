@@ -10,11 +10,18 @@ new class extends Component {}; ?>
         <flux:subheading>{{ __('Delete your account and all of its resources') }}</flux:subheading>
     </div>
 
-    <flux:modal.trigger name="confirm-user-deletion">
-        <flux:button variant="danger" data-test="delete-user-button">
-            {{ __('Delete account') }}
-        </flux:button>
-    </flux:modal.trigger>
+    @if (auth()->user()->isGuest())
+        <flux:callout variant="warning" icon="exclamation-triangle">
+            <flux:callout.heading>ゲストアカウント</flux:callout.heading>
+            <flux:callout.text>ゲストアカウントは削除できません。</flux:callout.text>
+        </flux:callout>
+    @else
+        <flux:modal.trigger name="confirm-user-deletion">
+            <flux:button variant="danger" data-test="delete-user-button">
+                {{ __('Delete account') }}
+            </flux:button>
+        </flux:modal.trigger>
 
-    <livewire:pages::settings.delete-user-modal />
+        <livewire:pages::settings.delete-user-modal />
+    @endif
 </section>

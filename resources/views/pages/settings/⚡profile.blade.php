@@ -30,6 +30,11 @@ new #[Title('Profile settings')] class extends Component {
     {
         $user = Auth::user();
 
+        if ($user->isGuest()) {
+            $this->addError('email', 'ゲストアカウントはメールアドレスを変更できません。');
+            return;
+        }
+
         $validated = $this->validate($this->profileRules($user->id));
 
         $user->fill($validated);
@@ -85,7 +90,14 @@ new #[Title('Profile settings')] class extends Component {
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
             <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
+                @if (auth()->user()->isGuest())
+                    <flux:callout variant="warning" icon="exclamation-triangle">
+                        <flux:callout.heading>ゲストアカウント</flux:callout.heading>
+                        <flux:callout.text>ゲストアカウントはメールアドレスを変更できません。</flux:callout.text>
+                    </flux:callout>
+                @else
+                    <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
+                @endif
 
                 @if ($this->hasUnverifiedEmail)
                     <div>

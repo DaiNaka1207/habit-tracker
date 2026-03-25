@@ -15,6 +15,11 @@ new class extends Component {
      */
     public function deleteUser(Logout $logout): void
     {
+        if (Auth::user()->isGuest()) {
+            $this->addError('password', 'ゲストアカウントは削除できません。');
+            return;
+        }
+
         $this->validate([
             'password' => $this->currentPasswordRules(),
         ]);
