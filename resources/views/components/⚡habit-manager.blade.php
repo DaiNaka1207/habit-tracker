@@ -40,7 +40,7 @@ new class extends Component
 ?>
 
 <div>
-    <div class="flex flex-row items-end gap-[10px]">
+    <div class="flex flex-row items-end gap-2.5">
         <div class="flex-1">
             <flux:input wire:model="name" label="習慣名" placeholder="例：毎朝ランニング" />
         </div>
